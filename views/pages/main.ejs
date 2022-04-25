@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+<body>
+    <main>
+        <div class="title">
+            <h1 >I Tunes API</h1>
+        </div>
+
+        <div class="myDiv" style="padding: 2%; background-color: #F8F9FA;" >
+            <!-- <form class="" action="/search" method="post"> -->
+            <form class="" action="javascript:getTrack()" method="post">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-5">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="title"
+                    id="track"
+                    placeholder="Enter Track Name"
+                />
+                </div>
+                <div class="col-1">
+                <input
+                    class="btn btn-light"
+                    style="background-color: white;"
+                    type="submit"
+                    name="Submit"
+                    value="Submit"
+                />
+                </div>
+            </div>
+            <div id="infoDiv" style="margin-top: 80px; margin-bottom: 50px;">
+
+            </div>
+
+            </form>
+            <button id="myBtn"style="visibility: hidden" onclick="openModal()" type="button">Add Search Results</button>
+        </div>
+        <div class="container-lg" style="margin-top: 2%">
+
+
+                <!-- modal: update CSS -->
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <h2>Add Search Results?</h2>
+                        
+                            <input
+                                class="btn btn-light"
+                                id="yesBtn"
+                                type="submit"
+                                name="Yes"
+                                value="Yes"
+                                onclick="addTrack()"
+                            />
+                        <!-- </form> -->
+                        <button class="close">No</button>
+                    </div>
+                </div>
+
+            <% if (error) { %>
+                <div class="alert alert-danger"><%- message %></div>
+            <% } %> <!-- if -->
+        </div>
+    </main>
+    <%- include('../partials/footer'); -%>
+    <script src="resources/js/script.js"></script>
+</body>

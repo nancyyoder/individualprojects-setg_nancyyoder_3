@@ -1,0 +1,34 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+<body>
+    <main>
+        <div class="title2">
+            <h1 >Search History</h1>
+        </div>
+        <div class="container">
+            <table class="table table-bordered" id="saved_tracks_table">
+                <tr>
+                    <th class="align-bottom" rowspan="2">Track Name</th>
+                    <th class="align-bottom"rowspan="2">Artist Name</th>
+                    <th class="align-bottom" rowspan="2">Track Type</th>
+                    <th class="align-bottom" rowspan="2">Track Genre</th>
+                    <th class="align-bottom" rowspan="2">Release date</th>
+                </tr>
+                <tr></tr>
+            <% if (data) {
+                console.log(table);
+                var table = '';
+                data.forEach(function(item){
+                    table += '<tr><td>' + item.track_name + '</td><td>' + item.artist_name + '</td><td>' + item.track_type +'</td><td>' + item.track_genre+ '</td><td>' + item.release_date +'</td></tr>';
+                }); %>
+                <%- table %>
+            <% } %>
+            </table>
+
+        </div>
+    </main>
+    <%- include('../partials/footer'); -%>
+</body>
+
+
+
