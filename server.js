@@ -10,13 +10,29 @@ const port = 3000;
 
 var pgp = require('pg-promise')();
 
-const dbConfig = {
+// const dbConfig = {
+// 	host: 'db',
+// 	port: 5432,
+// 	database: 'saved_tracks',
+// 	user: 'postgres',
+// 	password: 'Rosie123'
+// };
+
+const dev_dbConfig = {
 	host: 'db',
 	port: 5432,
-	database: 'saved_tracks',
-	user: 'postgres',
-	password: 'Rosie123'
+	database: process.env.POSTGRES_DB,
+	user: process.env.POSTGRES_USER,
+	password: process.env.POSTGRES_PASSWORD
 };
+
+const isProduction = process.env.NODE_ENV === 'production';
+const dbConfig = isProduction ? process.env.DATABASE_URL : dev_dbConfig;
+
+// fixes: https://github.com/vitaly-t/pg-promise/issues/711
+if (isProduction) {
+	pgp.pg.defaults.ssl = {rejectUnauthorized: false};
+}
 
 let db = pgp(dbConfig);
 
@@ -95,5 +111,8 @@ app.post('/add', function(req, res) {
     
 });
 
-const server = app.listen(port, hostname, () => console.log(`App running at http://${hostname}:${port}/`))
+// const server = app.listen(port, hostname, () => console.log(`App running at http://${hostname}:${port}/`))
+const server = app.listen(process.env.PORT || 3000, () => {
+  console.log(`Express running → PORT ${server.address().port}`);
+});
 module.exports = server;
